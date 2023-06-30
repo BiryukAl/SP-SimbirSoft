@@ -2,6 +2,9 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -40,9 +43,10 @@ dependencies {
 
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    implementation(libs.bundles.screen)
+    ksp(libs.lifecycle.compiler)
+    implementation(libs.bundles.db)
+    ksp(libs.room.compiler)
+    implementation(libs.bundles.tests)
+
 }
