@@ -20,7 +20,7 @@ class TaskRepositoryImpl(
         return local.findAll().map { it.toTask() }
     }
 
-    override suspend fun addForExternal(): Flow<Boolean> = flow {
+    override suspend fun addFromExternal(): Flow<Boolean> = flow {
         TODO("Not yet implemented")
     }
 }
