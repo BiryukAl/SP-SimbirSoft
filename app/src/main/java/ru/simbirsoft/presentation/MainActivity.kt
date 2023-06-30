@@ -1,7 +1,8 @@
-package ru.simbirsoft
+package ru.simbirsoft.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ru.simbirsoft.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
