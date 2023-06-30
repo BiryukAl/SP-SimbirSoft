@@ -37,6 +37,11 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    kotlin {
+        jvmToolchain(8) // fixed bug :app:kspDebugKotlin or :app:kaptDebugKotlin
+    }
+
+    
 }
 
 dependencies {
