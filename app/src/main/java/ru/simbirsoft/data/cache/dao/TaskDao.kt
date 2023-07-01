@@ -10,9 +10,9 @@ import ru.simbirsoft.data.cache.entities.TaskEntity
 interface TaskDao {
 
     @Insert
-    suspend fun add(task: TaskEntity):Int
+    suspend fun add(task: TaskEntity):Long
 
     @Query("SELECT * FROM task")
-    suspend fun findAll(): Flow<TaskEntity>
+    fun findAll(): Flow<List<TaskEntity>>
 
 }

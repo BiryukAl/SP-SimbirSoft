@@ -8,11 +8,12 @@ import java.sql.Timestamp
 @Entity(tableName = "task")
 data class TaskEntity(
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo("id")
     val id: Int,
     @ColumnInfo("date_start")
-    val dateStart: Timestamp,
+    val dateStart: Long,
     @ColumnInfo("date_finish")
-    val dateFinish: Timestamp,
+    val dateFinish: Long,
     @ColumnInfo("name")
     val name: String,
     @ColumnInfo("description")

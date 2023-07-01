@@ -8,7 +8,7 @@ class AddTaskUseCase(
     private val repository: TaskRepository,
 ) {
 
-    suspend operator fun invoke(task: Task): Flow<Boolean>{
+    suspend operator fun invoke(): Flow<Boolean>{
         return repository.addFromExternal()
     }
 }

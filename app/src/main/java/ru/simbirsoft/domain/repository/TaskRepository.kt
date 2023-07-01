@@ -5,6 +5,6 @@ import ru.simbirsoft.domain.model.Task
 
 interface TaskRepository {
     suspend fun add(task: Task): Flow<Boolean>
-    suspend fun findAll(): Flow<Task>
+    suspend fun findAll(): Flow<List<Task>>
     suspend fun addFromExternal(): Flow<Boolean>
 }
