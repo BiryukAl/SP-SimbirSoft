@@ -15,4 +15,7 @@ interface TaskDao {
     @Query("SELECT * FROM task")
     fun findAll(): Flow<List<TaskEntity>>
 
+    @Query("SELECT * FROM task WHERE date_start >= :fromDataStart AND date_start < :toDataStart")
+    fun findOnSectionDataStart(fromDataStart: Long, toDataStart: Long): Flow<List<TaskEntity>>
+
 }
