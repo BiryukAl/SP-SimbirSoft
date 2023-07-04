@@ -18,7 +18,7 @@ class TaskRepositoryImpl(
         emit(result != 0L)
     }
 
-    override suspend fun findAll(): Flow<List<Task>> {
+    override fun findAll(): Flow<List<Task>> {
         return taskDao.findAll().map { it.map(mapper::toTask) }
     }
 
