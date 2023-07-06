@@ -6,15 +6,18 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import ru.simbirsoft.data.cache.entities.TaskEntity
 
-@Database(entities = [TaskEntity::class], version = 1)
+@Database(
+    entities = [TaskEntity::class],
+    version = 1
+)
 abstract class TaskDatabaseImpl : RoomDatabase(), TaskDatabase {
 
-    companion object{
+    companion object {
         fun create(context: Context) = Room
             .databaseBuilder(
                 context,
                 TaskDatabaseImpl::class.java,
-                "notes-database"
+                "task-database.db"
             )
             .build()
     }

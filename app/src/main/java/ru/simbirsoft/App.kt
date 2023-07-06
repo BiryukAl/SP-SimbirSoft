@@ -12,6 +12,8 @@ import ru.simbirsoft.domain.repository.TaskRepository
 import ru.simbirsoft.domain.usecase.AddFromExternalUseCase
 import ru.simbirsoft.domain.usecase.AddTaskUseCase
 import ru.simbirsoft.domain.usecase.GetAllTaskUseCase
+import ru.simbirsoft.domain.usecase.GetTaskOnDayUseCase
+import ru.simbirsoft.presentation.MapperUi
 
 class App : Application() {
 
@@ -23,15 +25,20 @@ class App : Application() {
         // Data
         ServiceLocator.register<TaskDatabase>(TaskDatabaseImpl.create(locate()))
 
-        ServiceLocator.register(MapperEntity())
+
+        ServiceLocator.register<MapperEntity>(MapperEntity())
 
         ServiceLocator.register<TaskRepository>(TaskRepositoryImpl(locate(), locate()))
 
+//        ServiceLocator.register<MapperUi>(MapperUi())
+//        ServiceLocator.register<MapperEntity>(MapperEntity())
+
         // UseCAse
-        ServiceLocator.register(AddTaskUseCase(locate()))
-        ServiceLocator.register(GetAllTaskUseCase(locate()))
-        ServiceLocator.register(AddFromExternalUseCase(locate()))
+        ServiceLocator.register<AddTaskUseCase>(AddTaskUseCase(locate()))
+        ServiceLocator.register<GetAllTaskUseCase>(GetAllTaskUseCase(locate()))
+        ServiceLocator.register<GetTaskOnDayUseCase>(GetTaskOnDayUseCase(locate()))
+        ServiceLocator.register<AddFromExternalUseCase>(AddFromExternalUseCase(locate()))
 
-
+        ServiceLocator.register<MapperUi>(MapperUi())
     }
 }
