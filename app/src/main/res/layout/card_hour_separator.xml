@@ -6,25 +6,38 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/timeRow"
+        android:id="@+id/separator_hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/gray_200"
         android:textSize="11sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/separator_start_line"
+        app:layout_constraintEnd_toStartOf="@+id/separator_end_line"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="12 pm" />
 
     <View
-        android:id="@+id/separator"
+        android:id="@+id/separator_start_line"
         android:layout_width="0dp"
         android:layout_height="1dip"
-        android:layout_marginStart="4dp"
+        android:layout_marginHorizontal="4dp"
         android:layout_marginTop="1dp"
         android:background="@color/gray_200"
-        app:layout_constraintBottom_toBottomOf="@id/timeRow"
+        app:layout_constraintBottom_toBottomOf="@id/separator_hour"
+        app:layout_constraintEnd_toStartOf="@id/separator_hour"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/separator_hour" />
+
+    <View
+        android:id="@+id/separator_end_line"
+        android:layout_width="0dp"
+        android:layout_height="1dip"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginTop="1dp"
+        android:background="@color/gray_200"
+        app:layout_constraintBottom_toBottomOf="@id/separator_hour"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/timeRow"
-        app:layout_constraintTop_toTopOf="@id/timeRow" />
+        app:layout_constraintStart_toEndOf="@id/separator_hour"
+        app:layout_constraintTop_toTopOf="@id/separator_hour" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

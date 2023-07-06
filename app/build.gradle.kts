@@ -41,7 +41,10 @@ android {
         jvmToolchain(8) // fixed bug :app:kspDebugKotlin or :app:kaptDebugKotlin
     }
 
-    
+    viewBinding {
+        enable = true
+    }
+
 }
 
 dependencies {
