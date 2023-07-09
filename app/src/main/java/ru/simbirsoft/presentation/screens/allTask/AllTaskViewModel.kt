@@ -19,7 +19,6 @@ class AllTaskViewModel : BaseViewModel() {
     sealed class UiState {
         object Loading : UiState()
         data class Success(
-            val day: Timestamp,
             val tasks: List<TaskUi>
         ) : UiState()
 
@@ -34,18 +33,22 @@ class AllTaskViewModel : BaseViewModel() {
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState
 
+    private val _calendar = MutableStateFlow<Calendar>(Calendar.getInstance())
+    val calendar: StateFlow<Calendar> = _calendar
+
+
     init {
-        updateTaskByDate(Calendar.getInstance().time)
+        updateTask()
     }
 
-    fun updateTaskByDate(date: Date) {
+    fun updateTask(){
         _uiState.value = UiState.Loading
 
-        val nowDay = mapDateToTimestamp(date)
+        val nowDay = mapDateToTimestamp(calendar.value.time)
         viewModelScope.launch {
             getTaskOnDayUseCase(nowDay).collect {
 
-                _uiState.value = UiState.Success(nowDay, it.map(mapperUi::toTaskUi))
+                _uiState.value = UiState.Success(it.map(mapperUi::toTaskUi))
             }
         }
     }
