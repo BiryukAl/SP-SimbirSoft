@@ -65,7 +65,7 @@ class AllTaskFragment : BaseFragment(R.layout.fragment_all_task) {
 
     private fun initCalendar() {
         viewBinding.calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            viewModel.calendar.value.set(year, month, dayOfMonth, 0, 0)
+            viewModel.selectedDayOfCalendar.value.set(year, month, dayOfMonth)
             viewModel.updateTask()
         }
     }

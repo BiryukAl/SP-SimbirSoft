@@ -33,21 +33,19 @@ class AllTaskViewModel : BaseViewModel() {
     private val _uiState = MutableStateFlow<UiState>(UiState.Loading)
     val uiState: StateFlow<UiState> = _uiState
 
-    private val _calendar = MutableStateFlow<Calendar>(Calendar.getInstance())
-    val calendar: StateFlow<Calendar> = _calendar
+    private val _selectedDayOfCalendar = MutableStateFlow<Calendar>(Calendar.getInstance())
+    val selectedDayOfCalendar: StateFlow<Calendar> = _selectedDayOfCalendar
 
 
     init {
         updateTask()
     }
 
-    fun updateTask(){
+    fun updateTask() {
         _uiState.value = UiState.Loading
-
-        val nowDay = mapDateToTimestamp(calendar.value.time)
+        val nowDay = mapDateToTimestamp(selectedDayOfCalendar.value.time)
         viewModelScope.launch {
             getTaskOnDayUseCase(nowDay).collect {
-
                 _uiState.value = UiState.Success(it.map(mapperUi::toTaskUi))
             }
         }
