@@ -9,16 +9,17 @@ import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import ru.simbirsoft.R
 import ru.simbirsoft.databinding.FragmentAddTaskBinding
+import ru.simbirsoft.di.locateLazy
 import ru.simbirsoft.presentation.base.BaseFragment
-import java.text.SimpleDateFormat
+import ru.simbirsoft.presentation.util.Formatters
 import java.util.Calendar
-import java.util.Locale
 
 class AddTaskFragment : BaseFragment(R.layout.fragment_add_task) {
 
     private val viewBinding: FragmentAddTaskBinding by viewBinding(FragmentAddTaskBinding::bind)
     private val viewModel: AddTaskViewModel by viewModels()
 
+    private val formatters: Formatters by locateLazy()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initSelectDateNewTask()
@@ -30,7 +31,7 @@ class AddTaskFragment : BaseFragment(R.layout.fragment_add_task) {
 
     private fun initBtnAddTask() {
         viewBinding.btnAddTask.setOnClickListener {
-            if (checkTitleIsEmpty()){
+            if (checkTitleIsEmpty()) {
                 showMessageIncorrectData()
                 return@setOnClickListener
             }
@@ -168,14 +169,14 @@ class AddTaskFragment : BaseFragment(R.layout.fragment_add_task) {
         val startData = viewModel.calendarStart.value.time
 
         viewBinding.dateNewTask.text =
-            SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(startData)
+            formatters.dateFormatters.format(startData)
     }
 
     private fun updateTimeViewsText() {
         val startTime = viewModel.calendarStart.value.time
         val finishTime = viewModel.calendarFinish.value.time
 
-        val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val formatter = formatters.timeFormatter
         viewBinding.timeStartNewTask.text = formatter.format(startTime)
         viewBinding.timeFinishNewTask.text = formatter.format(finishTime)
     }

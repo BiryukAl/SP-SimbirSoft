@@ -14,6 +14,7 @@ import ru.simbirsoft.domain.usecase.AddTaskUseCase
 import ru.simbirsoft.domain.usecase.GetAllTaskUseCase
 import ru.simbirsoft.domain.usecase.GetTaskOnDayUseCase
 import ru.simbirsoft.presentation.MapperUi
+import ru.simbirsoft.presentation.util.Formatters
 
 class App : Application() {
 
@@ -30,8 +31,6 @@ class App : Application() {
 
         ServiceLocator.register<TaskRepository>(TaskRepositoryImpl(locate(), locate()))
 
-//        ServiceLocator.register<MapperUi>(MapperUi())
-//        ServiceLocator.register<MapperEntity>(MapperEntity())
 
         // UseCAse
         ServiceLocator.register<AddTaskUseCase>(AddTaskUseCase(locate()))
@@ -39,6 +38,8 @@ class App : Application() {
         ServiceLocator.register<GetTaskOnDayUseCase>(GetTaskOnDayUseCase(locate()))
         ServiceLocator.register<AddFromExternalUseCase>(AddFromExternalUseCase(locate()))
 
+        ServiceLocator.register(Formatters())
         ServiceLocator.register<MapperUi>(MapperUi())
+
     }
 }

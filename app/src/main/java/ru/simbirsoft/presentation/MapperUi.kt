@@ -1,14 +1,19 @@
 package ru.simbirsoft.presentation
 
+import ru.simbirsoft.di.locateLazy
 import ru.simbirsoft.domain.model.Task
 import ru.simbirsoft.presentation.uiModel.TaskUi
+import ru.simbirsoft.presentation.util.Formatters
 
 class MapperUi {
+
+    private val formatters: Formatters by locateLazy()
+
     fun toTaskUi(task: Task): TaskUi.Task {
-        with(task){
+        with(task) {
             return TaskUi.Task(
-                dateStart = dateStart.toString(),
-                dateFinish = dateFinish.toString(),
+                dateStart = formatters.timeFormatter.format(dateStart),
+                dateFinish = formatters.timeFormatter.format(dateFinish),
                 name = name,
                 description = description,
             )
