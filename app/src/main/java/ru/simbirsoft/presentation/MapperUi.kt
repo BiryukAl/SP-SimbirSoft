@@ -1,13 +1,10 @@
 package ru.simbirsoft.presentation
 
-import ru.simbirsoft.di.locateLazy
 import ru.simbirsoft.domain.model.Task
 import ru.simbirsoft.presentation.uiModel.TaskUi
 import ru.simbirsoft.presentation.util.Formatters
 
-class MapperUi {
-
-    private val formatters: Formatters by locateLazy()
+class MapperUi(private val formatters: Formatters) {
 
     fun toTaskUi(task: Task): TaskUi.Task {
         with(task) {
