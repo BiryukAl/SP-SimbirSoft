@@ -5,7 +5,7 @@ sealed class TaskUi(val id: Int) {
         val dateStart: String,
         val dateFinish: String,
         val name: String,
-        val description: String,
+        val description: String?,
     ) : TaskUi(0)
 
     data class SeparatorHour(

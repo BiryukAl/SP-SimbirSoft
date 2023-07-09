@@ -14,9 +14,8 @@ class TaskRepositoryImpl(
 ) : TaskRepository {
 
     private val taskDao get() = local.taskDao
-    override suspend fun add(task: Task): Flow<Boolean> = flow {
-        val result = taskDao.add(mapper.toTaskEntity(task))
-        emit(result != 0L)
+    override suspend fun add(task: Task) {
+        taskDao.add(mapper.toTaskEntity(task))
     }
 
     override fun findAll(): Flow<List<Task>> {
@@ -32,7 +31,7 @@ class TaskRepositoryImpl(
         return taskDao.findOnSectionDataStart(from, to).map { it.map(mapper::toTask) }
     }
 
-    override suspend fun addFromExternal(): Flow<Boolean> = flow {
+    override suspend fun addFromExternal() {
         TODO("Not yet implemented")
     }
 }

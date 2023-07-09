@@ -6,7 +6,7 @@ import ru.simbirsoft.domain.repository.TaskRepository
 class AddFromExternalUseCase(
     private val repository: TaskRepository,
 ) {
-    suspend operator fun invoke(): Flow<Boolean> {
-        return repository.addFromExternal()
+    suspend operator fun invoke() {
+        repository.addFromExternal()
     }
 }

@@ -9,7 +9,7 @@ import java.sql.Timestamp
 data class TaskEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("id")
-    val id: Int,
+    val id: Int? = null,
     @ColumnInfo("date_start")
     val dateStart: Long,
     @ColumnInfo("date_finish")
@@ -17,5 +17,5 @@ data class TaskEntity(
     @ColumnInfo("name")
     val name: String,
     @ColumnInfo("description")
-    val description: String,
+    val description: String?,
 )
