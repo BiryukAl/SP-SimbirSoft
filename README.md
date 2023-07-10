@@ -17,7 +17,7 @@ Android приложение, представляющее из себя еже�
 
 | После import-а задач из JSON                  | Добавление Задачи                             | Результат                                     |
 |-----------------------------------------------|-----------------------------------------------|-----------------------------------------------| 
-| ![alt text](imageForPreview/Screenchot_1.jpg) | ![alt text](imageForPreview/Screenchot_3.jpg) | ![alt text](imageForPreview/Screenchot_2.jpg) | 
+| ![alt text](imageForPreview/Screenshot_1.jpg) | ![alt text](imageForPreview/Screenshot_3.jpg) | ![alt text](imageForPreview/Screenshot_2.jpg) | 
 
 ## По критериям:
 
