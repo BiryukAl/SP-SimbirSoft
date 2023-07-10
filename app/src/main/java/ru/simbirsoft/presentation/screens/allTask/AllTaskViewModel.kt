@@ -54,7 +54,19 @@ class AllTaskViewModel : BaseViewModel() {
         val nowDay = mapDateToTimestamp(selectedDayOfCalendar.value.time)
         viewModelScope.launch {
             getTaskOnDayUseCase(nowDay).collect {
-                _uiState.value = UiState.Success(it.map(mapperUi::toTaskUi))
+                val taskUi: MutableList<TaskUi> = mutableListOf()
+                val allHour: MutableSet<Int> = mutableSetOf()
+                it.forEach { task ->
+                    val cal = Calendar.getInstance()
+                    cal.time = task.dateStart
+                    val hourTask = cal.get(Calendar.HOUR_OF_DAY)
+                    if (hourTask !in allHour) {
+                        taskUi.add(TaskUi.SeparatorHour(hourTask))
+                        allHour.add(hourTask)
+                    }
+                    taskUi.add(mapperUi.toTaskUi(task))
+                }
+                _uiState.value = UiState.Success(taskUi)
             }
         }
     }

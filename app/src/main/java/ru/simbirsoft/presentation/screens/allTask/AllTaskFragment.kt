@@ -51,7 +51,6 @@ class AllTaskFragment : BaseFragment(R.layout.fragment_all_task), FileSelectionE
 
                         is AllTaskViewModel.UiState.Loading -> {
                             visibleProgressBar(true)
-                            // TODO: Visible progress bar
                         }
 
                         is AllTaskViewModel.UiState.Error -> {
