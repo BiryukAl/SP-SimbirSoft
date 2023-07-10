@@ -5,10 +5,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import ru.simbirsoft.di.locateLazy
+import ru.simbirsoft.domain.usecase.AddFromExternalUseCase
+import ru.simbirsoft.domain.usecase.GetAllTaskUseCase
 import ru.simbirsoft.domain.usecase.GetTaskOnDayUseCase
 import ru.simbirsoft.presentation.MapperUi
 import ru.simbirsoft.presentation.base.BaseViewModel
 import ru.simbirsoft.presentation.uiModel.TaskUi
+import java.io.FileDescriptor
 import java.sql.Timestamp
 import java.util.Calendar
 import java.util.Date
@@ -27,6 +30,8 @@ class AllTaskViewModel : BaseViewModel() {
     }
 
     private val getTaskOnDayUseCase: GetTaskOnDayUseCase by locateLazy()
+    private val getAllTaskUseCase: GetAllTaskUseCase by locateLazy()
+    private val addFromExternalUseCase: AddFromExternalUseCase by locateLazy()
     private val mapperUi: MapperUi by locateLazy()
 
 
@@ -37,8 +42,11 @@ class AllTaskViewModel : BaseViewModel() {
     val selectedDayOfCalendar: StateFlow<Calendar> = _selectedDayOfCalendar
 
 
+
     init {
+        isTaskForDataEmpty()
         updateTask()
+
     }
 
     fun updateTask() {
@@ -53,6 +61,23 @@ class AllTaskViewModel : BaseViewModel() {
 
     private fun mapDateToTimestamp(date: Date): Timestamp {
         return Timestamp((date.time / GetTaskOnDayUseCase.DAY) * GetTaskOnDayUseCase.DAY)
+    }
+
+    private fun isTaskForDataEmpty() {
+        viewModelScope.launch {
+            getAllTaskUseCase().collect {
+                if (it.isEmpty()) {
+                    _uiState.value = UiState.Error(EmptyTaskException())
+                }
+            }
+        }
+    }
+
+    fun getTaskForExternal(fileDescriptor: FileDescriptor?) {
+        viewModelScope.launch {
+            addFromExternalUseCase(fileDescriptor)
+        }
+        _uiState.value = UiState.Loading
     }
 
 }

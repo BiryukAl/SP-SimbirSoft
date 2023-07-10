@@ -13,6 +13,7 @@ fragments = "1.6.0"
 view-binding-delegat = "1.5.6"
 lifecycle = "2.6.1"
 room = "2.5.2"
+gson = "2.10.1"
 
 
 
@@ -31,10 +32,13 @@ view-binding-delegat = { group = "com.github.kirich1409", name = "viewbindingpro
 view-model = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
 lifecycle-compiler = { group = "androidx.lifecycle", name = "lifecycle-compiler", version.ref = "lifecycle" } # from ksp
 
-# DB
+# Data
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" } # from ksp
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+
+
 
 # Tests
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -50,6 +54,6 @@ kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
 
 [bundles]
-db = ["room-ktx", "room-runtime"] # + room-compiler
+data = ["room-ktx", "room-runtime", "gson"] # + room-compiler
 screen = ["fragments", "view-binding-delegat", "view-model", "material", "constraintlayout"] # + lifecycle-compiler
 tests = ["junit", "androidx-test-ext-junit", "espresso-core"]

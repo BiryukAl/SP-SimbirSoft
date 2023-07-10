@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,9 +16,13 @@ import ru.simbirsoft.databinding.FragmentAllTaskBinding
 import ru.simbirsoft.presentation.adapters.TaskAdapter
 import ru.simbirsoft.presentation.base.BaseFragment
 import ru.simbirsoft.presentation.screens.addTask.AddTaskFragment
+import ru.simbirsoft.presentation.screens.allTask.chooseFile.FileSelectionEntryPoint
+import ru.simbirsoft.presentation.screens.allTask.chooseFile.SelectFileParams
+import ru.simbirsoft.presentation.screens.allTask.chooseFile.StorageAccessFrameworkInteractor
 import ru.simbirsoft.presentation.uiModel.TaskUi
+import java.io.FileDescriptor
 
-class AllTaskFragment : BaseFragment(R.layout.fragment_all_task) {
+class AllTaskFragment : BaseFragment(R.layout.fragment_all_task), FileSelectionEntryPoint {
 
     private val viewBinding: FragmentAllTaskBinding by viewBinding(FragmentAllTaskBinding::bind)
     private val viewModel: AllTaskViewModel by viewModels<AllTaskViewModel>()
@@ -51,17 +56,23 @@ class AllTaskFragment : BaseFragment(R.layout.fragment_all_task) {
 
                         is AllTaskViewModel.UiState.Error -> {
                             visibleProgressBar(false)
-                            Toast.makeText(
-                                context,
-                                "Error update task: ${uiState.exception}",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            if (uiState.exception is EmptyTaskException) {
+                                onSelectFileClick(SelectFileParams())
+
+                            } else {
+                                Toast.makeText(
+                                    context,
+                                    "Error update task: ${uiState.exception}",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
                         }
                     }
                 }
             }
         }
     }
+
 
     private fun initCalendar() {
         viewBinding.calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
@@ -93,4 +104,16 @@ class AllTaskFragment : BaseFragment(R.layout.fragment_all_task) {
 
         fun getInstance() = AllTaskFragment()
     }
+
+    override val fileSelectionOwner: Fragment = this
+    private val fileSelectionInteractor: StorageAccessFrameworkInteractor =
+        StorageAccessFrameworkInteractor(this)
+
+    override fun onFileSelected(fileDescriptor: FileDescriptor?) {
+        viewModel.getTaskForExternal(fileDescriptor)
+    }
+
+    private fun onSelectFileClick(selectFileParams: SelectFileParams) =
+        fileSelectionInteractor.beginSelectingFile(selectFileParams)
+
 }

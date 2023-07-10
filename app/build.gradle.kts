@@ -53,7 +53,7 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.bundles.screen)
     ksp(libs.lifecycle.compiler)
-    implementation(libs.bundles.db)
+    implementation(libs.bundles.data)
     ksp(libs.room.compiler)
     implementation(libs.bundles.tests)
 

@@ -1,6 +1,7 @@
 package ru.simbirsoft.data
 
 import ru.simbirsoft.data.cache.entities.TaskEntity
+import ru.simbirsoft.data.external.model.TaskParsJson
 import ru.simbirsoft.domain.model.Task
 import java.sql.Timestamp
 
@@ -23,6 +24,18 @@ class MapperEntity() {
                 id = id,
                 dateStart = dateStart.time,
                 dateFinish = dateFinish.time,
+                name = name,
+                description = description
+            )
+        }
+    }
+
+    fun toTaskEntity(taskModel: TaskParsJson): TaskEntity {
+        with(taskModel) {
+            return TaskEntity(
+                id = id,
+                dateStart = dateStart.toLong(),
+                dateFinish = dateFinish.toLong(),
                 name = name,
                 description = description
             )
